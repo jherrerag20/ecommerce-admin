@@ -8,9 +8,9 @@ export async function GET(
   ) {
     try {
 
-      const body = await req.json();
+      const { searchParams } = new URL(req.url);
 
-      const { phone } = body
+      const phone = searchParams.get("phone")
 
       if (!phone) {
         return new NextResponse("Phone is required", { status: 400 });
