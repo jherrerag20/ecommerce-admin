@@ -16,10 +16,8 @@ export const getTotalRevenue = async (storeId: string) => {
   });
 
   const totalRevenue = paidOrders.reduce((total, order) => {
-    const orderTotal = order.orderItems.reduce((orderSum, item) => {
-      return orderSum + item.product.price.toNumber();
-    }, 0);
-    return total + orderTotal;
+    // Cambia orderTotal para tomar en cuenta totalPrice en lugar de sumar los precios de los productos
+    return total + order.totalPrice.toNumber();
   }, 0);
 
   return totalRevenue;
