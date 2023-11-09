@@ -8,25 +8,27 @@ export async function GET(
   ) {
     try {
 
-        const { phone } = await req.json();
+      const body = await req.json();
 
-        if (!phone) {
-            return new NextResponse("Phone is required", { status: 400 });
-        }
+      const { phone } = body
 
-        if (!params.storeId) {
-            return new NextResponse("Store id is required", { status: 400 });
-        }
+      if (!phone) {
+        return new NextResponse("Phone is required", { status: 400 });
+      }
+
+      if (!params.storeId) {
+        return new NextResponse("Store id is required", { status: 400 });
+      }
       
     
-        const orders = await prismadb.order.findMany({
-            where: {
-                phone: phone,
-                storeId: params.storeId
-            }
-        });
+      const orders = await prismadb.order.findMany({
+        where: {
+          phone: phone,
+          storeId: params.storeId
+        }
+      });
         
-        return NextResponse.json(orders);
+      return NextResponse.json(orders);
     } catch (error) {
 
       console.log('[ORDERS_GET]', error);
