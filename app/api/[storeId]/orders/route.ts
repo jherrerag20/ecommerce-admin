@@ -8,11 +8,11 @@ export async function GET(
   ) {
     try {
 
-        // const { phone } = await req.json();
+        const { phone } = await req.json();
 
-        // if (!phone) {
-        //     return new NextResponse("Phone is required", { status: 400 });
-        // }
+        if (!phone) {
+            return new NextResponse("Phone is required", { status: 400 });
+        }
 
         if (!params.storeId) {
             return new NextResponse("Store id is required", { status: 400 });
@@ -21,14 +21,14 @@ export async function GET(
     
         const orders = await prismadb.order.findMany({
             where: {
-                // phone: phone,
+                phone: phone,
                 storeId: params.storeId
             }
         });
         
         return NextResponse.json(orders);
     } catch (error) {
-      
+
       console.log('[ORDERS_GET]', error);
       return new NextResponse("Internal error", { status: 500 });
     }
