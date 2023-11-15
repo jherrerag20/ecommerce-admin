@@ -2,6 +2,15 @@ import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
+const corsHeaders = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  };
+  
+export async function OPTIONS() {
+    return NextResponse.json({}, { headers: corsHeaders });
+}
 
 export async function GET(
     _req : Request,
@@ -20,7 +29,7 @@ export async function GET(
             },
         });
 
-        return NextResponse.json( billboard ); 
+        return NextResponse.json( billboard, { headers: corsHeaders } ); 
         
     } catch (error) {
         console.log('[BILLBOARD_GET]', error);
@@ -79,7 +88,7 @@ export async function PATCH(
             }
         });
 
-        return NextResponse.json( billboard ); 
+        return NextResponse.json( billboard, { headers: corsHeaders } ); 
         
     } catch (error) {
         console.log('[BILLBOARD_PATCH]', error);
@@ -123,7 +132,7 @@ export async function DELETE(
             },
         });
 
-        return NextResponse.json( billboard ); 
+        return NextResponse.json( billboard, { headers: corsHeaders } ); 
         
     } catch (error) {
         console.log('[BILLBOARD_DELETE]', error);
