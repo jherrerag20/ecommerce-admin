@@ -16,7 +16,7 @@ export async function POST(
   { params }: { params: { storeId: string } }
 ) {
   try {
-    const { productIds, phone, address, totalPrice } = await req.json();
+    const { productIds, productsAmount ,phone, address, totalPrice } = await req.json();
 
     if (!phone) {
       return new NextResponse("Phone is required", { status: 403 });
@@ -32,6 +32,26 @@ export async function POST(
 
     if (!productIds || productIds.length === 0) {
       return new NextResponse("Product ids are required", { status: 400 });
+    }
+
+    if (!productsAmount || productsAmount.length === 0) {
+      return new NextResponse("Product amount are required", { status: 400 });
+    }
+
+    for (let i = 0; i < productIds.length; i++) {
+      const productId = productIds[i];
+      const amountToUpdate = productsAmount[i];
+
+      await prismadb.product.update({
+        where: {
+          id: productId,
+        },
+        data: {
+          amount: {
+            decrement: amountToUpdate,
+          },
+        },
+      });
     }
 
     const order = await prismadb.order.create({
