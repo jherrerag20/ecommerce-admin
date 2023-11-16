@@ -35,7 +35,10 @@ export const CellAction : React.FC<CellActionProps> = ({
     const onChangePaid = async () => {
         try {
           setLoading(true);
-          await axios.patch(`/api/${params.storeId}/orders/${data.id}?field=isPaid`);
+          await axios.patch(
+            `/api/${params.storeId}/orders/${data.id}`,
+            { field: 'isPaid' }
+          );
           router.refresh();
           toast.success("Pago actualizado correctamente");
         } catch (error) {
@@ -45,11 +48,14 @@ export const CellAction : React.FC<CellActionProps> = ({
           setOpen(false);
         }
       };
-    
+      
     const onChangeStatus = async () => {
         try {
           setLoading(true);
-          await axios.patch(`/api/${params.storeId}/orders/${data.id}?field=status`);
+          await axios.patch(
+            `/api/${params.storeId}/orders/${data.id}`,
+            { field: 'status' }
+          );
           router.refresh();
           toast.success("Estado del pedido actualizado correctamente");
         } catch (error) {
