@@ -3,12 +3,14 @@
 import { ColumnDef } from "@tanstack/react-table"
 
 import { CellAction } from "./cell-action"
+import { Badge } from "@/components/ui/badge";
 
 export type OrderColumn = {
   id: string;
   phone: string;
   address: string;
-  isPaid: boolean;
+  isPaid: string;
+  status: string
   totalPrice: string;
   products: string;
   createdAt: string;
@@ -34,10 +36,12 @@ export const columns: ColumnDef<OrderColumn>[] = [
   {
     accessorKey: "isPaid",
     header: "Status pago",
+    cell: ({ row }) => <Badge>{row.original.isPaid}</Badge>, // Usa el valor dentro de Badge
   },
   {
     accessorKey: "status",
     header: "Status de pedido",
+    cell: ({ row }) => <Badge>{row.original.status}</Badge>, // Usa el valor dentro de Badge
   },
   {
     accessorKey: "createdAt",

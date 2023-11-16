@@ -27,16 +27,27 @@ const OrdersPage = async ({
         }
     });
 
-    const formatedOrders : OrderColumn[] = orders.map(( item ) => ({
-        id : item.id,
-        phone : item.phone,
-        address : item.address,
-        products : item.orderItems.map(( orderItem ) => orderItem.product.name + " (" + orderItem.productsAmount + ")").join(', '),
-        totalPrice : formatter.format( item.totalPrice.toNumber() ),
-        isPaid: item.isPaid,
-        status: item.status,
-        createdAt : format( item.createdAt, "MMM do, yyyy" )
-    }))
+    // Función isPaidFunction para obtener el estado de pago
+    const isPaidFunction = (isPaid: boolean): string => {
+        return isPaid ? "Pagado" : "Sin pagar";
+    };
+    
+    // Función statusFunction para obtener el estado de entrega
+    const statusFunction = (status: boolean): string => {
+        return status ? "Entregado" : "En proceso";
+    };
+
+    const formatedOrders: OrderColumn[] = orders.map((item) => ({
+        id: item.id,
+        phone: item.phone,
+        address: item.address,
+        products: item.orderItems.map((orderItem) => orderItem.product.name + " (" + orderItem.productsAmount + ")").join(', '),
+        totalPrice: formatter.format(item.totalPrice.toNumber()),
+        isPaid: isPaidFunction(item.isPaid), // Llamada a la función isPaidFunction
+        status: statusFunction(item.status), // Llamada a la función statusFunction
+        createdAt: format(item.createdAt, "MMM do, yyyy"),
+    }));
+    
 
     return(
         <div className="flex-col">
