@@ -18,7 +18,7 @@ export type OrderColumn = {
 
 const variantValue = (value: string): BadgeProps["variant"] => {
   if (value === "Pagado" || value === "Entregado") {
-    return "outline";
+    return "default";
   } else {
     return "destructive";
   }
