@@ -44,9 +44,9 @@ const OrdersPage = async ({
         products: item.orderItems.map((orderItem) => orderItem.product.name + " (" + orderItem.productsAmount + ")").join(', '),
         totalPrice: formatter.format(item.totalPrice.toNumber()),
         clientName: item.clientName,
-        delivery: deliveryFunction(item.delivery),
+        delivery: item.delivery,
         isPaid: isPaidFunction(item.isPaid), // Llamada a la función isPaidFunction
-        status: item.status, // Llamada a la función statusFunction
+        status: statusFunction(item.status), // Llamada a la función statusFunction
         createdAt: format(item.createdAt, "MMM do, yyyy"),
     }));
     
