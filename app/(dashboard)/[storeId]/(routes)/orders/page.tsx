@@ -37,6 +37,11 @@ const OrdersPage = async ({
         return status ? "Entregado" : "En proceso";
     };
 
+    // Función statusFunction para obtener el tipo de entrega
+    const deliveryFunction = (delivery: boolean): string => {
+        return delivery ? "A domicilio" : "En sucursal";
+    };
+
     const formatedOrders: OrderColumn[] = orders.map((item) => ({
         id: item.id,
         phone: item.phone,
@@ -44,7 +49,7 @@ const OrdersPage = async ({
         products: item.orderItems.map((orderItem) => orderItem.product.name + " (" + orderItem.productsAmount + ")").join(', '),
         totalPrice: formatter.format(item.totalPrice.toNumber()),
         clientName: item.clientName,
-        delivery: item.delivery,
+        delivery: deliveryFunction(item.delivery),
         isPaid: isPaidFunction(item.isPaid), // Llamada a la función isPaidFunction
         status: statusFunction(item.status), // Llamada a la función statusFunction
         createdAt: format(item.createdAt, "MMM do, yyyy"),
