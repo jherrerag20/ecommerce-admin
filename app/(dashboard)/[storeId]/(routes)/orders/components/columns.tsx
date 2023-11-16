@@ -9,6 +9,8 @@ export type OrderColumn = {
   id: string;
   phone: string;
   address: string;
+  clientName: string;
+  delivery: string;
   isPaid: string;
   status: string
   totalPrice: string;
@@ -28,6 +30,10 @@ export const columns: ColumnDef<OrderColumn>[] = [
   {
     accessorKey: "products",
     header: "Productos",
+  },
+  {
+    accessorKey: "clientName",
+    header: "Nombre",
   },
   {
     accessorKey: "phone",
@@ -50,6 +56,10 @@ export const columns: ColumnDef<OrderColumn>[] = [
     accessorKey: "status",
     header: "Status de pedido",
     cell: ({ row }) => <Badge variant={ variantValue( row.original.status ) }>{row.original.status}</Badge>, // Usa el valor dentro de Badge
+  },
+  {
+    accessorKey: "delivery",
+    header: "Tipo de entrega",
   },
   {
     accessorKey: "createdAt",

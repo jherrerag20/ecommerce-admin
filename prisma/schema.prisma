@@ -137,6 +137,8 @@ model Order {
   isPaid      Boolean @default(false)
   phone       String @default("")
   totalPrice  Decimal
+  clientName  String @default("")
+  delivery    String @default("")
   address     String @default("")
   status      Boolean @default(false)
   createdAt   DateTime @default(now())
