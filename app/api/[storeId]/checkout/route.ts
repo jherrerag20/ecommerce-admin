@@ -62,15 +62,16 @@ export async function POST(
         storeId: params.storeId,
         isPaid: false,
         orderItems: {
-          create: productIds.map((productId: string) => ({
+          create: productIds.map((productId: string, index: number) => ({
             product: {
               connect: {
-                id: productId
-              }
-            }
-          }))
-        }
-      }
+                id: productId,
+              },
+            },
+            productsAmount: productsAmount[index],
+          })),
+        },
+      },
     });
 
     return NextResponse.json(order, {

@@ -1,6 +1,6 @@
 "use client";
 
-import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
+import { CircleDollarSign, Copy, LucideShoppingBag, MoreHorizontal } from "lucide-react";
 import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -35,7 +35,22 @@ export const CellAction : React.FC<CellActionProps> = ({
     const onChagePaid = async () => {
         try {
             setLoading(true);
-            await axios.patch( `/api/${ params.storeId }/orders/${data.id}` );
+            await axios.patch( `/api/${params.storeId}/orders/${data.id}?field=isPaid` );
+            router.refresh();
+            toast.success('Pago actualizado correctamente');
+        } catch (error) {
+            toast.error("Algo salio mal");
+        } finally {
+            setLoading(false);
+            setOpen(false);
+        }
+    }
+
+
+    const onChangeStatus = async() => {
+        try {
+            setLoading(true);
+            await axios.patch( `/api/${params.storeId}/orders/${data.id}?field=status` );
             router.refresh();
             toast.success('Pago actualizado correctamente');
         } catch (error) {
@@ -58,6 +73,7 @@ export const CellAction : React.FC<CellActionProps> = ({
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
+
                     <DropdownMenuLabel>
                         Actions
                     </DropdownMenuLabel>
@@ -66,9 +82,14 @@ export const CellAction : React.FC<CellActionProps> = ({
                         Copiar Id
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={onChagePaid}>
-                        <Edit className="mr-2 h-4 w-4" />
+                        <CircleDollarSign className="mr-2 h-4 w-4" />
                         Cambiar el estado de pago
                     </DropdownMenuItem>
+                    <DropdownMenuItem onClick={onChangeStatus}>
+                        <LucideShoppingBag className="mr-2 h-4 w-4" />
+                        Cambiar el estado del pedido 
+                    </DropdownMenuItem>
+
                 </DropdownMenuContent>
             </DropdownMenu>
 
