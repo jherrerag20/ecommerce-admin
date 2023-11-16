@@ -138,7 +138,7 @@ model Order {
   phone       String @default("")
   totalPrice  Decimal
   clientName  String @default("")
-  delivery    String @default("")
+  delivery    Boolean @default(false)
   address     String @default("")
   status      Boolean @default(false)
   createdAt   DateTime @default(now())
