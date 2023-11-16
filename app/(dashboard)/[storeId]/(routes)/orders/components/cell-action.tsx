@@ -32,34 +32,33 @@ export const CellAction : React.FC<CellActionProps> = ({
     }
 
 
-    const onChagePaid = async () => {
+    const onChangePaid = async () => {
         try {
-            setLoading(true);
-            await axios.patch( `/api/${params.storeId}/orders/${data.id}?field=isPaid` );
-            router.refresh();
-            toast.success('Pago actualizado correctamente');
+          setLoading(true);
+          await axios.patch(`/api/${params.storeId}/orders/${data.id}?field=isPaid`);
+          router.refresh();
+          toast.success("Pago actualizado correctamente");
         } catch (error) {
-            toast.error("Algo salio mal");
+          toast.error("Algo salió mal");
         } finally {
-            setLoading(false);
-            setOpen(false);
+          setLoading(false);
+          setOpen(false);
         }
-    }
-
-
-    const onChangeStatus = async() => {
+      };
+    
+    const onChangeStatus = async () => {
         try {
-            setLoading(true);
-            await axios.patch( `/api/${params.storeId}/orders/${data.id}?field=status` );
-            router.refresh();
-            toast.success('Pago actualizado correctamente');
+          setLoading(true);
+          await axios.patch(`/api/${params.storeId}/orders/${data.id}?field=status`);
+          router.refresh();
+          toast.success("Estado del pedido actualizado correctamente");
         } catch (error) {
-            toast.error("Algo salio mal");
+          toast.error("Algo salió mal");
         } finally {
-            setLoading(false);
-            setOpen(false);
+          setLoading(false);
+          setOpen(false);
         }
-    }
+    };
 
 
     return (
@@ -81,7 +80,7 @@ export const CellAction : React.FC<CellActionProps> = ({
                         <Copy className="mr-2 h-4 w-4" />
                         Copiar Id
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={onChagePaid}>
+                    <DropdownMenuItem onClick={onChangePaid}>
                         <CircleDollarSign className="mr-2 h-4 w-4" />
                         Cambiar el estado de pago
                     </DropdownMenuItem>
