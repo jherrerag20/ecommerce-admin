@@ -9,6 +9,7 @@ import axios from "axios";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { OrderColumn } from "./columns";
 import { Button } from "@/components/ui/button";
+import { AlertModal } from "@/components/modals/alert-modal";
 
 interface CellActionProps {
 
@@ -78,6 +79,7 @@ export const CellAction : React.FC<CellActionProps> = ({
     return (
 
         <>
+            <AlertModal isOpen={open} onClose={() => setOpen(false)} onConfirm={onDelete} loading={loading}/>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="h-8 w-8 p-0">
