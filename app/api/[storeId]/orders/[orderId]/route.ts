@@ -41,13 +41,13 @@ export async function DELETE(
             return new NextResponse("Unauthorized", { status: 405 });
         }
 
-        const category = await prismadb.category.deleteMany({
+        const order = await prismadb.order.deleteMany({
             where : {
                 id : params.orderId,
             },
         });
 
-        return NextResponse.json( category, { headers: corsHeaders } ); 
+        return NextResponse.json( order, { headers: corsHeaders } ); 
         
     } catch (error) {
         console.log('[CATEGORY_DELETE]', error);
