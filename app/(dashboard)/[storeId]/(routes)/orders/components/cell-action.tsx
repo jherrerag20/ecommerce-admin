@@ -66,9 +66,9 @@ export const CellAction : React.FC<CellActionProps> = ({
             setLoading(true);
             await axios.delete( `/api/${ params.storeId }/orders/${data.id}` );
             router.refresh();
-            toast.success('Producto eliminado correctamente');
+            toast.success('Pedido eliminado correctamente');
         } catch (error) {
-            toast.error("Algo salio mal, asegurate de haber eliminado todas las categorias que tengan que ver con este poster");
+            toast.error("Algo salio mal");
         } finally {
             setLoading(false);
             setOpen(false);

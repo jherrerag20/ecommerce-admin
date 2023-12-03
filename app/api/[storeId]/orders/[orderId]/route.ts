@@ -27,7 +27,7 @@ export async function DELETE(
         }
 
         if( !params.orderId ) {
-            return new NextResponse( "Category id is required", { status : 400 } );
+            return new NextResponse( "Order id is required", { status : 400 } );
         }
 
         const storeByUserId = await prismadb.store.findFirst({
@@ -50,7 +50,7 @@ export async function DELETE(
         return NextResponse.json( order, { headers: corsHeaders } ); 
         
     } catch (error) {
-        console.log('[CATEGORY_DELETE]', error);
+        console.log('[ORDER_DELETE]', error);
         return new NextResponse("Internal Error", { status : 500 });
     }
     
