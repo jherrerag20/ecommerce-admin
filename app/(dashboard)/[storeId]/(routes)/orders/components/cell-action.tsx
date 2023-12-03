@@ -1,6 +1,6 @@
 "use client";
 
-import { CircleDollarSign, Copy, LucideShoppingBag, MoreHorizontal } from "lucide-react";
+import { CircleDollarSign, Copy, LucideShoppingBag, MoreHorizontal, Trash } from "lucide-react";
 import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -60,6 +60,20 @@ export const CellAction : React.FC<CellActionProps> = ({
         }
     };
 
+    const onDelete =async () => {
+        try {
+            setLoading(true);
+            await axios.delete( `/api/${ params.storeId }/orders/${data.id}` );
+            router.refresh();
+            toast.success('Producto eliminado correctamente');
+        } catch (error) {
+            toast.error("Algo salio mal, asegurate de haber eliminado todas las categorias que tengan que ver con este poster");
+        } finally {
+            setLoading(false);
+            setOpen(false);
+        }
+    };
+
 
     return (
 
@@ -87,6 +101,11 @@ export const CellAction : React.FC<CellActionProps> = ({
                     <DropdownMenuItem onClick={onChangeStatus}>
                         <LucideShoppingBag className="mr-2 h-4 w-4" />
                         Cambiar el estado del pedido 
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem onClick={() => setOpen(true)}>
+                        <Trash className="mr-2 h-4 w-4" />
+                        Eliminar
                     </DropdownMenuItem>
 
                 </DropdownMenuContent>
