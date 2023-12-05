@@ -41,12 +41,20 @@ const OrdersPage = async ({
         id: item.id,
         phone: item.phone,
         address: item.address,
-        products: item.orderItems.map((orderItem) => orderItem.product.name + " (" + orderItem.productsAmount + ")").join(', '),
+        products: item.orderItems.map((orderItem) => {
+            // Verificar si productsAmount es menor a amount_wholesalePrice
+            const showWholesalePrice = orderItem.productsAmount < orderItem.product.amount_wholesalePrice;
+    
+            // Mostrar el precio adecuado según la condición
+            const priceToShow = showWholesalePrice ? orderItem.product.wholesalePrice : orderItem.product.price;
+    
+            return `${orderItem.product.name} (${orderItem.productsAmount}) ($${priceToShow})`;
+        }).join(', '),
         totalPrice: formatter.format(item.totalPrice.toNumber()),
         clientName: item.clientName,
         delivery: item.delivery,
-        isPaid: isPaidFunction(item.isPaid), // Llamada a la función isPaidFunction
-        status: statusFunction(item.status), // Llamada a la función statusFunction
+        isPaid: isPaidFunction(item.isPaid),
+        status: statusFunction(item.status),
         createdAt: format(item.createdAt, "MMM do, yyyy"),
     }));
     
