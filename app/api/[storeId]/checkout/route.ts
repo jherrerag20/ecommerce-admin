@@ -16,10 +16,18 @@ export async function POST(
   { params }: { params: { storeId: string } }
 ) {
   try {
-    const { productIds, productsAmount ,phone, address, totalPrice } = await req.json();
+    const { productIds, clientName, productsAmount ,phone, address, totalPrice, delivery } = await req.json();
 
     if (!phone) {
       return new NextResponse("Phone is required", { status: 403 });
+    }
+
+    if (!clientName) {
+      return new NextResponse("Client Name is required", { status: 403 });
+    }
+
+    if (!delivery) {
+      return new NextResponse("Delivery is required", { status: 403 });
     }
 
     if (!address) {
@@ -57,8 +65,10 @@ export async function POST(
     const order = await prismadb.order.create({
       data: {
         phone,
+        clientName,
         address,
         totalPrice,
+        delivery,
         storeId: params.storeId,
         isPaid: false,
         orderItems: {
