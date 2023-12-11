@@ -43,7 +43,7 @@ const OrdersPage = async ({
         address: item.address,
         products: item.orderItems.map((orderItem) => {
             // Verificar si productsAmount es menor a amount_wholesalePrice
-            const showWholesalePrice = orderItem.productsAmount < orderItem.product.amount_wholesalePrice;
+            const showWholesalePrice = orderItem.productsAmount >= orderItem.product.amount_wholesalePrice;
     
             // Mostrar el precio adecuado según la condición
             const priceToShow = showWholesalePrice ? orderItem.product.wholesalePrice : orderItem.product.price;

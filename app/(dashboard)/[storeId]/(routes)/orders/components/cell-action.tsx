@@ -1,6 +1,6 @@
 "use client";
 
-import { CircleDollarSign, Copy, LucideShoppingBag, MoreHorizontal, Trash } from "lucide-react";
+import { CircleDollarSign, Copy, LucideShoppingBag, MoreHorizontal, Trash, ClipboardCheck } from "lucide-react";
 import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -95,6 +95,10 @@ export const CellAction : React.FC<CellActionProps> = ({
                     <DropdownMenuItem onClick={() => onCopy(data.id)}>
                         <Copy className="mr-2 h-4 w-4" />
                         Copiar Id
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => router.push(`/${params.storeId}/orders/${data.id}`)}>
+                        <ClipboardCheck className="mr-2 h-4 w-4" />
+                        Revisar pedido
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={onChangePaid}>
                         <CircleDollarSign className="mr-2 h-4 w-4" />
