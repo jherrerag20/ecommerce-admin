@@ -7,6 +7,8 @@ export type ResOrderColumn = {
   productName : string;
   amount: number;
   price: string;
+  totalPrice: string;
+  totalPriceNumber: number;
 }
 
 export const columns: ColumnDef<ResOrderColumn>[] = [
