@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { OrderColumn } from "./columns";
@@ -61,18 +62,23 @@ export const CellAction : React.FC<CellActionProps> = ({
         }
     };
 
-    const onDelete =async () => {
-        try {
-            setLoading(true);
-            await axios.delete( `/api/${ params.storeId }/orders/${data.id}` );
-            router.refresh();
-            toast.success('Pedido eliminado correctamente');
-        } catch (error) {
-            toast.error("Algo salio mal");
-        } finally {
-            setLoading(false);
-            setOpen(false);
-        }
+    const onDelete = async () => {
+      const router = useRouter();
+    
+      try {
+        setLoading(true);
+        await axios.delete(`/api/${params.storeId}/orders/${data.id}`);
+        
+        // Reload the current page
+        router.reload();
+    
+        toast.success('Pedido eliminado correctamente');
+      } catch (error) {
+        toast.error("Algo salió mal");
+      } finally {
+        setLoading(false);
+        setOpen(false);
+      }
     };
 
 
