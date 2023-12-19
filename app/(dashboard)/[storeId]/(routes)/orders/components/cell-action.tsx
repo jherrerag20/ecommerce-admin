@@ -61,24 +61,19 @@ export const CellAction : React.FC<CellActionProps> = ({
         }
     };
 
-    const onDelete = async () => {
-      const router = useRouter();
-    
-      try {
+   const onDelete = async () => {
+    try {
         setLoading(true);
         await axios.delete(`/api/${params.storeId}/orders/${data.id}`);
-        
-        // Reload the current page
-        router.reload();
-    
         toast.success('Pedido eliminado correctamente');
-      } catch (error) {
+        window.location.reload();
+    } catch (error) {
         toast.error("Algo salió mal");
-      } finally {
+    } finally {
         setLoading(false);
         setOpen(false);
-      }
-    };
+    }
+};
 
 
     return (
